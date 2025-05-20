@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --mesh-opacity: 0.5;
+    --mesh-color: 255 255 255;
+  }
+
+  .dark {
+    --mesh-opacity: 0.05;
+    --mesh-color: 0 0 0;
+  }
+}
+
+@layer utilities {
+  .mesh-overlay {
+    position: relative;
+  }
+
+  .mesh-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noiseFilter)' fill='rgb(var(--mesh-color))' opacity='var(--mesh-opacity)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .glass-effect {
+    @apply bg-opacity-70 backdrop-blur-lg backdrop-saturate-150;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+  }
+
+  .animate-in {
+    @apply opacity-0 animate-fade-in;
+  }
+
+  .slide-up {
+    @apply opacity-0 translate-y-4 animate-slide-up;
+  }
+
+  .slide-down {
+    @apply opacity-0 -translate-y-4 animate-slide-down;
+  }
+
+  .slide-left {
+    @apply opacity-0 translate-x-4 animate-slide-left;
+  }
+
+  .slide-right {
+    @apply opacity-0 -translate-x-4 animate-slide-right;
+  }
+
+  .scale-up {
+    @apply opacity-0 scale-95 animate-scale-up;
+  }
+
+  .scale-down {
+    @apply opacity-0 scale-105 animate-scale-down;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-500 bg-opacity-50 rounded-full hover:bg-opacity-75 transition-all;
+}
+
+/* Smooth transitions */
+* {
+  @apply transition-colors duration-200;
+}
+
+/* Code block styles */
+pre {
+  @apply rounded-lg !important;
+}
+
+code {
+  font-family: 'JetBrains Mono', monospace !important;
+}
+
+/* Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-900;
+}
+
+/* Custom selection color */
+::selection {
+  @apply bg-primary-500 bg-opacity-25 text-current;
+}
